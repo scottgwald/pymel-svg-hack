@@ -59,7 +59,7 @@ for i in $(printf "%.3d " $(eval echo "{001..$NUM_FRAMES}")); do
 	# frame_out_pdf=${frame_outfile/$EXTENSION/.pdf};
 	echo "Output pdf file for frame $i is $frame_out_pdf"
 	echo "inkscape -f $CURRENT_DIR/$frame_out_svg -A $CURRENT_DIR/$frame_out_pdf"
-	inkscape -f "$CURRENT_DIR/$frame_out_svg" -A "$CURRENT_DIR/$frame_out_pdf"
+	/usr/local/bin/inkscape -f "$CURRENT_DIR/$frame_out_svg" -A "$CURRENT_DIR/$frame_out_pdf"
 
 done
 
