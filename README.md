@@ -12,10 +12,9 @@ This was developed for Mac OS.
 
 ## To run pdf generation on sample data
 
-"""
-cd pymel-svg-hack
-bin/generate-pdfs sample-data/ordered-mouth-points.dat
-"""
+    cd pymel-svg-hack
+    bin/generate-pdfs sample-data/ordered-mouth-points.dat
+
 
 The script generates intermediate data in subfolders of the
 folder containing the ordered list of points.
