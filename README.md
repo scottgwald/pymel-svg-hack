@@ -21,7 +21,7 @@ folder containing the ordered list of points.
 
 ## To generate new data from Maya
 
-1. In `pymel-order-curve-points.py` adjust file paths according to your system (lines: 10, 11, 119)
+1. In `pymel-order-curve-points.py` adjust file paths according to your system (lines: [10](https://github.com/scottgwald/pymel-svg-hack/blob/master/pymel-order-curve-points.py#L10), [11](https://github.com/scottgwald/pymel-svg-hack/blob/master/pymel-order-curve-points.py#L11), [119](https://github.com/scottgwald/pymel-svg-hack/blob/master/pymel-order-curve-points.py#L119))
 2. In Maya, select a ring of mesh vertices, and run the script `pymel-order-curve-points.py`
 
 ## To run pdf generation on new data
