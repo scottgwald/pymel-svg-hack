@@ -24,7 +24,7 @@ showWindow $myWin;
 
 global proc int screenSpace(string $sCam)
 {
-  string $folderPath = "/Users/LiliVanili/svghacking/maya-output/";  
+  string $folderPath = "/Users/scottgwald/mygit/pymel-svg-hack/maya-output/";  
   // get the currently selected point
   string $dumpList[] = `ls -sl`;
   int $argc = size($dumpList);

@@ -5,7 +5,7 @@ This was developed for Mac OS.
 # Dependencies
 
 * Maya
-* pymel
+* [pymel](https://github.com/LumaPictures/pymel/releases)
 * inkscape
 
 # Demo

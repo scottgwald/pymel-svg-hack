@@ -5,8 +5,10 @@ from os.path import expanduser
 
 # config variables
 
+#IMPORTANT: ADJUST REPO_REL_PATH TO PUT OUTPUT FILES IN THE RIGHT PLACE
+
 repo_rel_path = os.path.join("mygit","pymel-svg-hack") # path from user home folder
-point_order_file = os.path.join("maya-output", "mouth-point-order")
+point_order_file = os.path.join("data", "ordered-mouth-points.dat")
 
 home = expanduser("~")
 repo_full_path = os.path.join( home, repo_rel_path )
