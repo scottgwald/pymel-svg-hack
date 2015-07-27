@@ -29,6 +29,10 @@ folder containing the ordered list of points.
     cd pymel-svg-hack
     bin/generate-pdfs data/ordered-mouth-points.dat
 
+The resulting pdf frames are in a `pdf` folder in the same directory as the ordered points file.
+In this case, that file is `data/ordered-mouth-points.dat`, and hence the resulting pdfs
+are in the folder `data/pdf`.
+
 # Design
 
 1. output lists of values from Maya
