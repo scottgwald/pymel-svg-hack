@@ -1,0 +1,31 @@
+#! /bin/bash
+
+# generate an svg polygon from input file with "x y" on each line.
+
+# here is how I generated an input file
+#ls *.xml | tr "\t" "\n" | while read line; do cat "$line" | head -n 1 >> outfile; done
+
+rm $2
+
+header='<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <polygon points="'
+
+footer='"
+         style="stroke:#660000;fill:none;"/>
+
+</svg>'
+
+printf "%s" "$header" >> $2
+
+points=$(cat $1 |
+while read line; do
+echo $line | tr " " ",";
+#printf "%s," "$line";
+done)
+
+printf "%s" "$points" | tr "\n" " " >> $2
+
+printf "%s" "$footer" >> $2
+
