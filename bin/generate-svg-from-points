@@ -1,0 +1,30 @@
+#! /bin/bash
+
+# generate an svg polygon from input file with "x y" on each line.
+# $1 is file containing list of points
+# $2 is output file name
+
+rm $2
+
+header='<svg xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000">
+
+  <polygon points="'
+
+footer='"
+         style="stroke:#660000;fill:none;"/>
+
+</svg>'
+
+printf "%s" "$header" >> $2
+
+points=$(cat $1 |
+while read line; do
+echo $line | tr " " ",";
+#printf "%s," "$line";
+done)
+
+printf "%s" "$points" | tr "\n" " " >> $2
+
+printf "%s" "$footer" >> $2
+

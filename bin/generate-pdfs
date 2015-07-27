@@ -1,0 +1,86 @@
+#! /bin/bash
+
+# $1 is list of files
+
+# generate "frame" point files by "transposing" input files
+
+EXTENSION=".xml"
+
+CURRENT_DIR=`pwd`
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+INPUT_PATH_PREFIX=$(dirname $1)
+OUTPUT_PATH_PREFIX="svg-output"
+
+NUM_PTS=$(cat $1 | wc -l | tr -d "\t" | tr -d " ")
+
+# compute number of frames as number of lines in first input file
+NUM_FRAMES=$(cat "$INPUT_PATH_PREFIX/$(sed '1q;d' $1)$EXTENSION" | wc -l | tr -d "\t" | tr -d " ")
+
+echo "Number of input files (points): $NUM_PTS"
+echo "Number of frames: $NUM_FRAMES"
+
+# WRITE FRAME FILES
+
+for i in $(printf "%.3d " $(eval echo "{001..$NUM_FRAMES}")); do
+	#
+	# generate point list
+	#
+	frame_outfile="$OUTPUT_PATH_PREFIX/frame_$i$EXTENSION"
+	frame_out_svg=${frame_outfile/$EXTENSION/.svg};
+	echo "Output file for frame $i is $frame_outfile"
+	rm $frame_outfile
+	for j in $(eval echo {1..$NUM_PTS}); do
+		#echo "command is: sed '$(echo "${i}q;d")' \"$INPUT_PATH_PREFIX/$(sed $(echo "${j}q;d") $1)$EXTENSION\""
+		new_line=$(sed $(echo "${i}q;d") $INPUT_PATH_PREFIX/$(sed $(echo "${j}q;d") $1)$EXTENSION)
+		#new_line=$(sed $(eval echo '${i}q;d') "$INPUT_PATH_PREFIX/$(sed $(eval echo '${j}q;d') $1)$EXTENSION")
+		echo "Taking line $i from input point $j: $new_line"
+		echo $new_line >> $frame_outfile
+		# echo cat "$INPUT_PATH_PREFIX/$(sed '1q;d' )$EXTENSION"
+	done
+
+	#
+	# generate svg
+	#
+
+	frame_out_svg=${frame_outfile/$EXTENSION/.svg};
+	echo "Output svg file for frame $i is $frame_out_svg"
+	echo "$DIR/generate-svg-from-points $frame_outfile $frame_out_svg"
+
+	$DIR/generate-svg-from-points "$frame_outfile" "$frame_out_svg"
+
+	#
+	# generate pdf
+	#
+
+	frame_out_pdf=${frame_outfile/$EXTENSION/.pdf};
+	echo "Output pdf file for frame $i is $frame_out_pdf"
+	echo "inkscape -f $CURRENT_DIR/$frame_out_svg -A $CURRENT_DIR/$frame_out_pdf"
+	inkscape -f "$CURRENT_DIR/$frame_out_svg" -A "$CURRENT_DIR/$frame_out_pdf"
+
+done
+
+# rm $2
+
+# header='<svg xmlns="http://www.w3.org/2000/svg"
+#     xmlns:xlink="http://www.w3.org/1999/xlink">
+
+#   <polygon points="'
+
+# footer='"
+#          style="stroke:#660000;fill:none;"/>
+
+# </svg>'
+
+# printf "%s" "$header" >> $2
+
+# points=$(cat $1 |
+# while read line; do
+# echo $line | tr " " ",";
+# #printf "%s," "$line";
+# done)
+
+# printf "%s" "$points" | tr "\n" " " >> $2
+
+# printf "%s" "$footer" >> $2
+
