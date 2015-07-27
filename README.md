@@ -21,7 +21,13 @@ folder containing the ordered list of points.
 
 ## To generate new data from Maya
 
-Select a ring of mesh vertices, and run the script `pymel-order-curve-points.py`
+1. In `pymel-order-curve-points.py` adjust file paths according to your system (lines: 10, 11, 119)
+2. In Maya, select a ring of mesh vertices, and run the script `pymel-order-curve-points.py`
+
+## To run pdf generation on new data
+
+    cd pymel-svg-hack
+    bin/generate-pdfs data/ordered-mouth-points.dat
 
 # Design
 
