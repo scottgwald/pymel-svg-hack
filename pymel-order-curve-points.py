@@ -1,5 +1,16 @@
 from pymel.all import *
 import sets
+import os
+from os.path import expanduser
+
+# config variables
+
+repo_rel_path = os.path.join("mygit","pymel-svg-hack") # path from user home folder
+point_order_file = "mouth-point-order"
+
+home = expanduser("~")
+repo_full_path = os.path.join( home, repo_rel_path )
+point_order_file_full_path = os.path.join( repo_full_path, point_order_file )
 
 mesh_vertices = ls(selection=True)
 print len(mesh_vertices)
@@ -51,6 +62,19 @@ while vertex_set.__len__() > 0:
 print ordered_output_array
 string_for_mel = ",".join(map(str, ordered_output_array))
 print "string for mel is:\n" + string_for_mel
+print os.getcwd()
+print point_order_file_full_path
+
+string_for_file = "\n".join(map(str, ordered_output_array))
+
+# f = open( point_order_file_full_path, 'w' )
+filename = point_order_file_full_path
+dir = os.path.dirname(filename)
+if not os.path.exists(dir):
+    os.makedirs(dir)
+with open(filename, 'w') as f:
+	print "writing point order to " + filename
+	f.write(string_for_file)
 
 # Algorithm:
 # select a vertex (A, the first one), add it to the ordered result list (result_list)
