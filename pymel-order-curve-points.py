@@ -60,11 +60,11 @@ print "string for mel is:\n" + string_for_mel
 
 # mel.eval("""
 
-MEL SCRIPT HERE ...
+# MEL SCRIPT HERE ...
 
-%s
+# %s
 
-"""
-% string_for_mel
+# """
+# % string_for_mel
 
-)
+# )
