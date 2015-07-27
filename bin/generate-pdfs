@@ -5,12 +5,14 @@
 # generate "frame" point files by "transposing" input files
 
 EXTENSION=".xml"
+INPUT_PATH_PREFIX=$(dirname $1)
+FRAMES_PATH_PREFIX="$INPUT_PATH_PREFIX/frames"
+SVG_PATH_PREFIX="$INPUT_PATH_PREFIX/svg"
+PDF_PATH_PREFIX="$INPUT_PATH_PREFIX/pdf"
+mkdir {$FRAMES_PATH_PREFIX,$SVG_PATH_PREFIX,$PDF_PATH_PREFIX} &> /dev/null
 
 CURRENT_DIR=`pwd`
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-
-INPUT_PATH_PREFIX=$(dirname $1)
-OUTPUT_PATH_PREFIX="svg-output"
 
 NUM_PTS=$(cat $1 | wc -l | tr -d "\t" | tr -d " ")
 
@@ -26,8 +28,7 @@ for i in $(printf "%.3d " $(eval echo "{001..$NUM_FRAMES}")); do
 	#
 	# generate point list
 	#
-	frame_outfile="$OUTPUT_PATH_PREFIX/frame_$i$EXTENSION"
-	frame_out_svg=${frame_outfile/$EXTENSION/.svg};
+	frame_outfile="$FRAMES_PATH_PREFIX/frame_$i$EXTENSION"
 	echo "Output file for frame $i is $frame_outfile"
 	rm $frame_outfile
 	for j in $(eval echo {1..$NUM_PTS}); do
@@ -43,7 +44,8 @@ for i in $(printf "%.3d " $(eval echo "{001..$NUM_FRAMES}")); do
 	# generate svg
 	#
 
-	frame_out_svg=${frame_outfile/$EXTENSION/.svg};
+	frame_out_svg="$SVG_PATH_PREFIX/frame_$i.svg"
+	# frame_out_svg=${frame_outfile/$EXTENSION/.svg};
 	echo "Output svg file for frame $i is $frame_out_svg"
 	echo "$DIR/generate-svg-from-points $frame_outfile $frame_out_svg"
 
@@ -53,7 +55,8 @@ for i in $(printf "%.3d " $(eval echo "{001..$NUM_FRAMES}")); do
 	# generate pdf
 	#
 
-	frame_out_pdf=${frame_outfile/$EXTENSION/.pdf};
+	frame_out_pdf="$PDF_PATH_PREFIX/frame_$i.pdf"
+	# frame_out_pdf=${frame_outfile/$EXTENSION/.pdf};
 	echo "Output pdf file for frame $i is $frame_out_pdf"
 	echo "inkscape -f $CURRENT_DIR/$frame_out_svg -A $CURRENT_DIR/$frame_out_pdf"
 	inkscape -f "$CURRENT_DIR/$frame_out_svg" -A "$CURRENT_DIR/$frame_out_pdf"
