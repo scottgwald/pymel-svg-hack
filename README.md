@@ -1,6 +1,16 @@
 # Maya to ToonBoom pipeline
 
+This software allows you to start in Maya with a closed curve of contiguous points that is a subset of a deformable/animated mesh in Maya, and export 2d positions those points in a range of frames, and save these as pdf and svg.
+
 This was developed for Mac OS.
+
+The steps to operating the software are as follows:
+
+1. Open Maya and select the closed curve of vertices that are desired.
+2. Adjust I/O paths in `pymel-order-curve-points.py` as described below.
+3. Run `pymel-order-curve-points.py` to generate position data for the points in the range of frames, one point per file, and one line per frame in each file. By default a file called `ordered-mouth-points.dat` will be generated in the same folder as the point position data files. That file must be passed as an argument in the next step.
+4. On the command line, set the current directory to be the top level of this repository (called `pymel-svg-hack` by default).
+5. Run `bin/generate-pdfs <path to ordered-mouth-points.dat>`. This will generate svg and pdf frames in new subfolders. These are subfolders of the directory containing ordered-mouth-points and corresponding point data files.
 
 # Dependencies
 
